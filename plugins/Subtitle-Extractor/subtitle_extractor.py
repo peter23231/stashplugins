@@ -79,10 +79,14 @@ def extract_subtitles_after_scene_scan(scene: dict, **kwargs):
     if video_path and os.path.isfile(video_path):
         extractor = SubtitleExtractor(video_path)
         extractor.extract_subtitles()
-        return {"status": "ok", "message": f"Subtitles extracted for {video_path}"}
+        result = {"status": "ok", "message": f"Subtitles extracted for {video_path}"}
+        print(result)  # Add this line for debugging
+        return result
     else:
         logging.warning(f"extract_subtitles_after_scene_scan: file not found {video_path}")
-        return {"status": "error", "message": f"File not found: {video_path}"}
+        result = {"status": "error", "message": f"File not found: {video_path}"}
+        print(result)  # Add this line for debugging
+        return result
 
 def extract_subtitles_retroactively(args: dict):
     """
