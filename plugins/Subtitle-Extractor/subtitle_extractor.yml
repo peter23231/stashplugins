@@ -1,4 +1,18 @@
 name: Subtitle Extractor
 description: Extracts embedded subtitles from video files and saves them as SRT files using StashApp's naming convention.
-version: 1.0.2
+version: 1.0.3
 url: https://raw.githubusercontent.com/peter23231/stashplugins/main/plugins/subtitle_extractor.py
+exec:
+  - python
+  - "{pluginDir}/subtitle_extractor.py"
+interface: raw
+hooks:
+  - name: Extract Subtitles After Scene Scan
+    description: Extracts subtitles from video after scene scan
+    triggeredBy:
+      - Scene.PostScan
+tasks:
+  - name: "Extract Subtitles Retroactively"
+    description: Extract subtitles from a list of video files
+    defaultArgs:
+      mode: extractRetroactive

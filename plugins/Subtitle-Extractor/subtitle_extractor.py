@@ -69,22 +69,22 @@ class SubtitleExtractor:
 
 # Stash plugin hooks
 
-def scene_post_scan(scene: dict, **kwargs):
+def extract_subtitles_after_scene_scan(scene: dict, **kwargs):
     """
     Called by Stash after a scene is scanned.
     scene: dict with at least 'file_path' key.
     """
     video_path = scene.get('file_path')
-    logging.info(f"scene_post_scan called for {video_path}")
+    logging.info(f"extract_subtitles_after_scene_scan called for {video_path}")
     if video_path and os.path.isfile(video_path):
         extractor = SubtitleExtractor(video_path)
         extractor.extract_subtitles()
         return {"status": "ok", "message": f"Subtitles extracted for {video_path}"}
     else:
-        logging.warning(f"scene_post_scan: file not found {video_path}")
+        logging.warning(f"extract_subtitles_after_scene_scan: file not found {video_path}")
         return {"status": "error", "message": f"File not found: {video_path}"}
 
-def run_plugin_task(args: dict):
+def extract_subtitles_retroactively(args: dict):
     """
     Called by Stash for retroactive tasks.
     args: dict with 'video_paths' key (list of file paths).
@@ -92,12 +92,12 @@ def run_plugin_task(args: dict):
     video_paths = args.get("video_paths", [])
     results = []
     for path in video_paths:
-        logging.info(f"run_plugin_task processing {path}")
+        logging.info(f"extract_subtitles_retroactively processing {path}")
         if path and os.path.isfile(path):
             extractor = SubtitleExtractor(path)
             extractor.extract_subtitles()
             results.append({"file": path, "status": "ok"})
         else:
-            logging.warning(f"run_plugin_task: file not found {path}")
+            logging.warning(f"extract_subtitles_retroactively: file not found {path}")
             results.append({"file": path, "status": "error", "message": "File not found"})
     return {"results": results}
