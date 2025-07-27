@@ -1,7 +1,5 @@
-id: subtitle_extractor
 name: Subtitle Extractor
-version: 1.0.0
-author: peter23231
 description: Extracts embedded subtitles from video files and saves them as SRT files using StashApp's naming convention.
+version: 1.0.0
 url: https://raw.githubusercontent.com/peter23231/stashplugins/main/plugins/subtitle_extractor.py
 docs: https://raw.githubusercontent.com/peter23231/stashplugins/main/docs/subtitle_extractor.md
